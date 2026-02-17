@@ -1,0 +1,71 @@
+{
+  "id": "group-archive",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "embedding": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "provider": { "type": "string", "enum": ["openai"] },
+          "apiKey": { "type": "string" },
+          "model": { "type": "string", "enum": ["text-embedding-3-small", "text-embedding-3-large"] }
+        },
+        "required": ["apiKey"]
+      },
+      "summary": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "provider": { "type": "string" },
+          "model": { "type": "string" },
+          "apiKey": { "type": "string" }
+        },
+        "required": ["model", "apiKey"]
+      },
+      "scheduledTime": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+      "timezone": { "type": "string" },
+      "dbPath": { "type": "string" }
+    },
+    "required": ["embedding", "summary"]
+  },
+  "uiHints": {
+    "embedding.apiKey": {
+      "label": "OpenAI API Key",
+      "sensitive": true,
+      "placeholder": "sk-proj-...",
+      "help": "API key for OpenAI embeddings (or use ${OPENAI_API_KEY})"
+    },
+    "embedding.model": {
+      "label": "Embedding Model",
+      "placeholder": "text-embedding-3-small"
+    },
+    "summary.provider": {
+      "label": "Summary LLM Provider",
+      "placeholder": "openai"
+    },
+    "summary.model": {
+      "label": "Summary Model",
+      "placeholder": "gpt-4o-mini"
+    },
+    "summary.apiKey": {
+      "label": "Summary API Key",
+      "sensitive": true
+    },
+    "scheduledTime": {
+      "label": "Scheduled Time",
+      "placeholder": "00:00",
+      "help": "Daily summary generation time (HH:MM)"
+    },
+    "timezone": {
+      "label": "Timezone",
+      "placeholder": "UTC"
+    },
+    "dbPath": {
+      "label": "Database Path",
+      "placeholder": "~/.openclaw/group-archive",
+      "advanced": true
+    }
+  }
+}
